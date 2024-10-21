@@ -2,16 +2,28 @@ package com.mareosenvios.dto;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.mareosenvios.entities.Customer;
+import io.swagger.annotations.ApiModel;
+import io.swagger.annotations.ApiModelProperty;
 
 import java.io.Serializable;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
+@ApiModel(description = "Representa la información del cliente")
 public class CustomerDTO implements Serializable {
 
+    @ApiModelProperty(value = "ID del cliente", required = true)
     private Integer customerId;
+
+    @ApiModelProperty(value = "Nombre del cliente")
     private String firstName;
+
+    @ApiModelProperty(value = "Apellido del cliente")
     private String lastName;
+
+    @ApiModelProperty(value = "Dirección del cliente")
     private String address;
+
+    @ApiModelProperty(value = "Ciudad del cliente")
     private String city;
 
     public CustomerDTO() {

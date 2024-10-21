@@ -21,24 +21,24 @@ public class CustomersService {
     private static final Logger logger = LoggerFactory.getLogger(CustomersService.class);
 
 
-    public ResponseServiceDTO getCustomer(Integer customerId) {
+    public ResponseServiceDTO<CustomerDTO> getCustomer(Integer customerId) {
         try {
             return this.findCustomerById(customerId);
         } catch (Exception e) {
             logger.error("Error al recuperar el cliente con id: {} - ERROR: {}", customerId, e.getMessage());
-            return new ResponseServiceDTO(false, ExParser.getRootException(e).getMessage());
+            return new ResponseServiceDTO<>(false, ExParser.getRootException(e).getMessage());
         }
     }
 
-    private ResponseServiceDTO findCustomerById(Integer customerId) {
+    private ResponseServiceDTO<CustomerDTO> findCustomerById(Integer customerId) {
         Optional<Customer> customer = this.customerRepository.findById(customerId);
         if (customer.isPresent()) {
             CustomerDTO customerDTO = new CustomerDTO(customer.get());
             logger.info("Cliente encontrado: {}", customerDTO);
-            return new ResponseServiceDTO(true, "", customerDTO);
+            return new ResponseServiceDTO<>(true, "", customerDTO);
         } else {
             logger.warn("No existe el cliente con el identificador {}", customerId);
-            return new ResponseServiceDTO(false, "No existe el cliente con el identificador " + customerId);
+            return new ResponseServiceDTO<>(false, "No existe el cliente con el identificador " + customerId);
         }
     }
 }

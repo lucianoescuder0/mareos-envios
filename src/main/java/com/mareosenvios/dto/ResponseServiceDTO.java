@@ -1,15 +1,21 @@
 package com.mareosenvios.dto;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import io.swagger.annotations.ApiModelProperty;
 
 import java.io.Serializable;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
-public class ResponseServiceDTO implements Serializable {
+public class ResponseServiceDTO<T> implements Serializable {
 
+    @ApiModelProperty(value = "Indica si la operación fue exitosa")
     private Boolean success;
+
+    @ApiModelProperty(value = "Mensaje de respuesta")
     private String message;
-    private Object data;
+
+    @ApiModelProperty(value = "Datos devueltos por el servicio")
+    private T data;
 
     public ResponseServiceDTO() {
     }
@@ -19,12 +25,13 @@ public class ResponseServiceDTO implements Serializable {
         this.message = message;
     }
 
-    public ResponseServiceDTO(Boolean success, String message, Object data) {
+    public ResponseServiceDTO(Boolean success, String message, T data) {
         this.success = success;
         this.message = message;
         this.data = data;
     }
-    public ResponseServiceDTO(Boolean success, Object data) {
+
+    public ResponseServiceDTO(Boolean success, T data) {
         this.success = success;
         this.data = data;
     }
@@ -45,11 +52,11 @@ public class ResponseServiceDTO implements Serializable {
         this.message = message;
     }
 
-    public Object getData() {
+    public T getData() {
         return data;
     }
 
-    public void setData(Object data) {
+    public void setData(T data) {
         this.data = data;
     }
 

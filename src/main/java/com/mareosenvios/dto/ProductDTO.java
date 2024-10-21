@@ -2,14 +2,21 @@ package com.mareosenvios.dto;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.mareosenvios.entities.Product;
+import io.swagger.annotations.ApiModel;
+import io.swagger.annotations.ApiModelProperty;
 
 import java.io.Serializable;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
+@ApiModel(description = "Representa la información de un producto")
 public class ProductDTO implements Serializable {
+    @ApiModelProperty(value = "ID del producto", required = true)
     private Integer productId;
+    @ApiModelProperty(value = "Descripción del producto")
     private String description;
+    @ApiModelProperty(value = "Peso del producto")
     private Double weight;
+    @ApiModelProperty(value = "Cantidad del producto en un envio")
     private Integer productCount;
 
     public ProductDTO() {
