@@ -32,4 +32,13 @@ public enum ShippingStatus {
         }
         throw new IllegalArgumentException("Cod de estado invalido: " + code);
     }
+
+    public static ShippingStatus fromDescription(String description) {
+        for (ShippingStatus status : ShippingStatus.values()) {
+            if (status.getDescription().equalsIgnoreCase(description)) {
+                return status;
+            }
+        }
+        throw new IllegalArgumentException("Descripción de estado invalida: " + description);
+    }
 }
