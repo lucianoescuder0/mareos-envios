@@ -1,6 +1,6 @@
 package com.mareosenvios.rest;
 
-import com.mareosenvios.dto.RespuestaServicioDTO;
+import com.mareosenvios.dto.ResponseServiceDTO;
 import com.mareosenvios.service.CustomersService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -17,8 +17,8 @@ public class CustomersREST {
     private CustomersService customersService;
 
     @GetMapping("/{customerId}")
-    public ResponseEntity<RespuestaServicioDTO> getCustomer(@PathVariable("customerId") Integer customerId) {
-        RespuestaServicioDTO respuesta = this.customersService.getCustomer(customerId);
-        return ResponseEntity.ok(respuesta);
+    public ResponseEntity<ResponseServiceDTO> getCustomer(@PathVariable("customerId") Integer customerId) {
+        ResponseServiceDTO response = this.customersService.getCustomer(customerId);
+        return ResponseEntity.ok(response);
     }
 }

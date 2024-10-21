@@ -1,10 +1,8 @@
 package com.mareosenvios.service;
 
-import com.mareosenvios.dto.CustomerDTO;
 import com.mareosenvios.dto.ProductDTO;
-import com.mareosenvios.dto.RespuestaServicioDTO;
+import com.mareosenvios.dto.ResponseServiceDTO;
 import com.mareosenvios.dto.ShippingDetailsDTO;
-import com.mareosenvios.entities.Customer;
 import com.mareosenvios.entities.Shipping;
 import com.mareosenvios.entities.ShippingItem;
 import com.mareosenvios.repositories.ShippingItemRepository;
@@ -17,7 +15,6 @@ import org.springframework.stereotype.Service;
 
 import javax.persistence.EntityNotFoundException;
 import java.util.List;
-import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Service
@@ -32,16 +29,16 @@ public class ShipmentsService {
     private static final Logger logger = LoggerFactory.getLogger(ShipmentsService.class);
 
 
-    public RespuestaServicioDTO getShipment(Integer shipmentId) {
+    public ResponseServiceDTO getShipment(Integer shipmentId) {
         try {
             return this.findShipmentById(shipmentId);
         } catch (Exception e) {
             logger.error("Error al recuperar el envio con id: {} - ERROR: {}", shipmentId, e.getMessage());
-            return new RespuestaServicioDTO(false, ExParser.getRootException(e).getMessage());
+            return new ResponseServiceDTO(false, ExParser.getRootException(e).getMessage());
         }
     }
 
-    private RespuestaServicioDTO findShipmentById(Integer shipmentId) {
+    private ResponseServiceDTO findShipmentById(Integer shipmentId) {
         Shipping shipping = shippingRepository.findById(shipmentId)
                 .orElseThrow(() -> new EntityNotFoundException("No existe el envío con el identificador " + shipmentId));
 
@@ -56,10 +53,10 @@ public class ShipmentsService {
             }).collect(Collectors.toList());
             shippingDetailsDTO.setProducts(productDTOList);
             logger.info("Se encontraron {} productos para el envío {}", shippingItems.size(), shipmentId);
-            return new RespuestaServicioDTO(true, "", shippingDetailsDTO);
+            return new ResponseServiceDTO(true, "", shippingDetailsDTO);
         } else {
             logger.warn("No se encontraron productos para el envío con el identificador {}", shipmentId);
-            return new RespuestaServicioDTO(true, "No se encontraron productos para el envio con el identificador " + shipmentId);
+            return new ResponseServiceDTO(true, "No se encontraron productos para el envio con el identificador " + shipmentId);
         }
     }
 }
