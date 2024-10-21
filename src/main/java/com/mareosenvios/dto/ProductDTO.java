@@ -1,6 +1,7 @@
 package com.mareosenvios.dto;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.annotation.JsonInclude;
 import com.mareosenvios.entities.Product;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
@@ -10,12 +11,18 @@ import java.io.Serializable;
 @JsonIgnoreProperties(ignoreUnknown = true)
 @ApiModel(description = "Representa la información de un producto")
 public class ProductDTO implements Serializable {
-    @ApiModelProperty(value = "ID del producto", required = true)
+
+    @JsonInclude(JsonInclude.Include.NON_NULL)
+    @ApiModelProperty(value = "ID del producto, en el top 3 no viene este atributo")
     private Integer productId;
+
     @ApiModelProperty(value = "Descripción del producto")
     private String description;
-    @ApiModelProperty(value = "Peso del producto")
+
+    @JsonInclude(JsonInclude.Include.NON_NULL)
+    @ApiModelProperty(value = "Peso del producto, , en el top 3 no viene este atributo")
     private Double weight;
+
     @ApiModelProperty(value = "Cantidad del producto en un envio")
     private Integer productCount;
 

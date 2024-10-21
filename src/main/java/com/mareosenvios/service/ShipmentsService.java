@@ -28,7 +28,7 @@ public class ShipmentsService {
     private ShippingRepository shippingRepository;
 
     @Autowired
-    private ValidationsService validationsService;
+    private StatesService statesService;
 
     private static final Logger logger = LoggerFactory.getLogger(ShipmentsService.class);
 
@@ -62,7 +62,7 @@ public class ShipmentsService {
     }
 
     private ResponseServiceDTO<ShippingDetailsDTO> updateStateShipment(Shipping shipping, ShippingStatus newStatus) {
-        if(this.validationsService.validateNextState(shipping.getStatusEnum(), newStatus)){
+        if(this.statesService.validateNextState(shipping.getStatusEnum(), newStatus)){
             shipping.setState(newStatus.getDescription());
             this.shippingRepository.save(shipping);
             return new ResponseServiceDTO<>(true, "El envio con identificador: " + shipping.getId() + " fue actualizado correctamente");
