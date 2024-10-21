@@ -23,6 +23,17 @@ public class Customer implements Serializable {
     @Column(name = "city", length = 255)
     private String city;
 
+    public Customer() {
+    }
+
+    public Customer(Integer id, String firstName, String lastName, String address, String city) {
+        this.id = id;
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.address = address;
+        this.city = city;
+    }
+
     public Integer getId() {
         return id;
     }
