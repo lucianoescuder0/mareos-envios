@@ -3,13 +3,12 @@ package com.mareosenvios.dto;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.mareosenvios.entities.Customer;
 
-import javax.persistence.Column;
 import java.io.Serializable;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class CustomerDTO implements Serializable {
 
-    private Integer id;
+    private Integer customerId;
     private String firstName;
     private String lastName;
     private String address;
@@ -18,25 +17,25 @@ public class CustomerDTO implements Serializable {
     public CustomerDTO() {
     }
     public CustomerDTO(Integer id, String firstName, String lastName) {
-        this.id = id;
+        this.customerId = id;
         this.firstName = firstName;
         this.lastName = lastName;
     }
 
     public CustomerDTO(Customer customer) {
-        this.id = customer.getId();
+        this.customerId = customer.getId();
         this.firstName = customer.getFirstName();
         this.lastName = customer.getLastName();
         this.address = customer.getAddress();
         this.city = customer.getCity();
     }
 
-    public Integer getId() {
-        return id;
+    public Integer getCustomerId() {
+        return customerId;
     }
 
-    public void setId(Integer id) {
-        this.id = id;
+    public void setCustomerId(Integer customerId) {
+        this.customerId = customerId;
     }
 
     public String getFirstName() {

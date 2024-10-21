@@ -31,7 +31,7 @@ public class CustomersService {
     }
 
     private RespuestaServicioDTO findCustomerById(Integer customerId) {
-        Optional<Customer> customer = customerRepository.findById(customerId);
+        Optional<Customer> customer = this.customerRepository.findById(customerId);
         if (customer.isPresent()) {
             CustomerDTO customerDTO = new CustomerDTO(customer.get());
             logger.info("Cliente encontrado: {}", customerDTO);
