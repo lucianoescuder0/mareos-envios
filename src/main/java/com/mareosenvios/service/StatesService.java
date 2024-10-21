@@ -1,6 +1,6 @@
 package com.mareosenvios.service;
 import com.mareosenvios.dto.ResponseServiceDTO;
-import com.mareosenvios.dto.StatesDTO;
+import com.mareosenvios.dto.StateDTO;
 import com.mareosenvios.enums.ShippingStatus;
 import com.mareosenvios.utils.ExParser;
 import org.slf4j.Logger;
@@ -18,9 +18,9 @@ public class StatesService {
     private static final Logger logger = LoggerFactory.getLogger(StatesService.class);
 
 
-    public ResponseServiceDTO<List<StatesDTO>> getStates() {
+    public ResponseServiceDTO<List<StateDTO>> getStates() {
         try{
-            List<StatesDTO> statusList = Arrays.asList(ShippingStatus.values()).stream().map(StatesDTO::new).collect(Collectors.toList());
+            List<StateDTO> statusList = Arrays.asList(ShippingStatus.values()).stream().map(StateDTO::new).collect(Collectors.toList());
             if(!statusList.isEmpty()){
                 return new ResponseServiceDTO<>(true, "", statusList);
             } else {

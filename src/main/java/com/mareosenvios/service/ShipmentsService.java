@@ -3,7 +3,6 @@ package com.mareosenvios.service;
 import com.mareosenvios.dto.ProductDTO;
 import com.mareosenvios.dto.ResponseServiceDTO;
 import com.mareosenvios.dto.ShippingDetailsDTO;
-import com.mareosenvios.dto.StatesDTO;
 import com.mareosenvios.entities.Shipping;
 import com.mareosenvios.entities.ShippingItem;
 import com.mareosenvios.enums.ShippingStatus;
@@ -16,7 +15,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import javax.persistence.EntityNotFoundException;
-import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
 

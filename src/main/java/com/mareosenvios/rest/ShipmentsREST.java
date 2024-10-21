@@ -2,8 +2,7 @@ package com.mareosenvios.rest;
 
 import com.mareosenvios.dto.ResponseServiceDTO;
 import com.mareosenvios.dto.ShippingDetailsDTO;
-import com.mareosenvios.dto.StatesDTO;
-import com.mareosenvios.enums.ShippingStatus;
+import com.mareosenvios.dto.StateDTO;
 import com.mareosenvios.service.ShipmentsService;
 import com.mareosenvios.service.StatesService;
 import io.swagger.annotations.Api;
@@ -49,8 +48,8 @@ public class ShipmentsREST {
 
     @GetMapping("/states")
     @ApiOperation(value = "Devuelve los estados aceptados por la api", response = ResponseServiceDTO.class)
-    public ResponseEntity<ResponseServiceDTO<List<StatesDTO>>> getStates() {
-        ResponseServiceDTO<List<StatesDTO>> response = this.statesService.getStates();
+    public ResponseEntity<ResponseServiceDTO<List<StateDTO>>> getStates() {
+        ResponseServiceDTO<List<StateDTO>> response = this.statesService.getStates();
         return ResponseEntity.ok(response);
     }
 }

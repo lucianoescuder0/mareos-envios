@@ -7,13 +7,13 @@ import io.swagger.annotations.ApiModelProperty;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 @ApiModel(description = "Representa el los estados que puede tener un envio")
-public class StatesDTO {
+public class StateDTO {
     @ApiModelProperty(value = "Código del estado")
     Integer code;
     @ApiModelProperty(value = "Descripción del estado")
     String description;
 
-    public StatesDTO(ShippingStatus shippingStatus) {
+    public StateDTO(ShippingStatus shippingStatus) {
         this.code = shippingStatus.getCode();
         this.description = shippingStatus.getDescription();
     }
