@@ -5,6 +5,7 @@ import com.mareosenvios.dto.ResponseServiceDTO;
 import com.mareosenvios.dto.ShippingDetailsDTO;
 import com.mareosenvios.entities.Shipping;
 import com.mareosenvios.entities.ShippingItem;
+import com.mareosenvios.enums.ShippingStatus;
 import com.mareosenvios.repositories.ShippingItemRepository;
 import com.mareosenvios.repositories.ShippingRepository;
 import com.mareosenvios.utils.ExParser;
@@ -26,19 +27,52 @@ public class ShipmentsService {
     @Autowired
     private ShippingRepository shippingRepository;
 
+    @Autowired
+    private ValidationsService validationsService;
+
     private static final Logger logger = LoggerFactory.getLogger(ShipmentsService.class);
 
 
     public ResponseServiceDTO<ShippingDetailsDTO> getShipment(Integer shipmentId) {
         try {
-            return this.findShipmentById(shipmentId);
+            return this.findShipmentDetailsById(shipmentId);
         } catch (Exception e) {
-            logger.error("Error al recuperar el envio con id: {} - ERROR: {}", shipmentId, e.getMessage());
-            return new ResponseServiceDTO<>(false, ExParser.getRootException(e).getMessage());
+            String message = ExParser.getRootException(e).getMessage();
+            logger.error("Error al recuperar el envio con identificador: {} - CAUSA: {}", shipmentId, message, e);
+            return new ResponseServiceDTO<>(false, message);
         }
     }
 
-    private ResponseServiceDTO<ShippingDetailsDTO> findShipmentById(Integer shipmentId) {
+
+    public ResponseServiceDTO<?> updateShipment(Integer shipmentId, Integer newStatusCode) {
+        try {
+            Shipping shipping = shippingRepository.findById(shipmentId)
+                    .orElseThrow(() -> new EntityNotFoundException("No existe el envio con el identificador " + shipmentId));
+
+            ShippingStatus newStatus = ShippingStatus.fromCode(newStatusCode);
+            if (shipping.getStatusEnum() == newStatus) {
+                return new ResponseServiceDTO<>(false, "El envío con identificador: " + shipmentId + " ya esta en el estado: " + newStatus.getDescription());
+            }
+            return this.updateStateShipment(shipping, newStatus);
+        } catch (Exception e) {
+            String message = ExParser.getRootException(e).getMessage();
+            logger.error("No se pudo actualizar el envio con identificador: {} - CAUSA: {}", shipmentId, message, e);
+            return new ResponseServiceDTO<>(false, message);
+        }
+    }
+
+    private ResponseServiceDTO<ShippingDetailsDTO> updateStateShipment(Shipping shipping, ShippingStatus newStatus) {
+        if(this.validationsService.validateNextState(shipping.getStatusEnum(), newStatus)){
+            shipping.setState(newStatus.getDescription());
+            this.shippingRepository.save(shipping);
+            return new ResponseServiceDTO<>(true, "El envio con identificador: " + shipping.getId() + " fue actualizado correctamente");
+        } else {
+            return new ResponseServiceDTO<>(false, "El envio con identificador: " + shipping.getId() + " no puede ser modificado al estado: " + newStatus.getDescription());
+        }
+    }
+
+
+    private ResponseServiceDTO<ShippingDetailsDTO> findShipmentDetailsById(Integer shipmentId) {
         Shipping shipping = shippingRepository.findById(shipmentId)
                 .orElseThrow(() -> new EntityNotFoundException("No existe el envio con el identificador " + shipmentId));
 

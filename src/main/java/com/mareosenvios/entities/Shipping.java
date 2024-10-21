@@ -1,5 +1,7 @@
 package com.mareosenvios.entities;
 
+import com.mareosenvios.enums.ShippingStatus;
+
 import javax.persistence.*;
 import java.io.Serializable;
 import java.time.LocalDate;
@@ -74,6 +76,10 @@ public class Shipping implements Serializable {
 
     public void setPriority(Integer priority) {
         this.priority = priority;
+    }
+
+    public ShippingStatus getStatusEnum() {
+        return ShippingStatus.fromDescription(state);
     }
 
     @Override

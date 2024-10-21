@@ -25,8 +25,9 @@ public class CustomersService {
         try {
             return this.findCustomerById(customerId);
         } catch (Exception e) {
-            logger.error("Error al recuperar el cliente con id: {} - ERROR: {}", customerId, e.getMessage());
-            return new ResponseServiceDTO<>(false, ExParser.getRootException(e).getMessage());
+            String message = ExParser.getRootException(e).getMessage();
+            logger.error("Error al recuperar el cliente con identificador: {} - ERROR: {}", customerId,message, e);
+            return new ResponseServiceDTO<>(false, message);
         }
     }
 
