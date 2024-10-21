@@ -3,21 +3,31 @@ package com.mareosenvios.dto;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.mareosenvios.entities.Shipping;
+import io.swagger.annotations.ApiModel;
+import io.swagger.annotations.ApiModelProperty;
 
 import java.io.Serializable;
 import java.time.LocalDate;
 import java.util.List;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
+@ApiModel(description = "Representa el detalle completo de un envio")
 public class ShippingDetailsDTO implements Serializable {
+    @ApiModelProperty(value = "ID del envio", required = true)
     private Integer shippingId;
+    @ApiModelProperty(value = "Estado del envio")
     private String state;
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "dd/MM/yyyy")
+    @ApiModelProperty(value = "Fecha de envio")
     private LocalDate sendDate;
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "dd/MM/yyyy")
+    @ApiModelProperty(value = "Fecha de llegada")
     private LocalDate arriveDate;
+    @ApiModelProperty(value = "Prioridad del envio")
     private Integer priority;
+    @ApiModelProperty(value = "Cliente")
     private CustomerDTO customer;
+    @ApiModelProperty(value = "Productos en el envio")
     private List<ProductDTO> products;
 
     public ShippingDetailsDTO() {
