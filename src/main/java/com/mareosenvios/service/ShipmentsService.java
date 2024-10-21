@@ -3,6 +3,7 @@ package com.mareosenvios.service;
 import com.mareosenvios.dto.ProductDTO;
 import com.mareosenvios.dto.ResponseServiceDTO;
 import com.mareosenvios.dto.ShippingDetailsDTO;
+import com.mareosenvios.dto.StatesDTO;
 import com.mareosenvios.entities.Shipping;
 import com.mareosenvios.entities.ShippingItem;
 import com.mareosenvios.enums.ShippingStatus;
@@ -15,6 +16,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import javax.persistence.EntityNotFoundException;
+import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -28,7 +30,7 @@ public class ShipmentsService {
     private ShippingRepository shippingRepository;
 
     @Autowired
-    private ValidationsService validationsService;
+    private StatesService statesService;
 
     private static final Logger logger = LoggerFactory.getLogger(ShipmentsService.class);
 
@@ -62,7 +64,7 @@ public class ShipmentsService {
     }
 
     private ResponseServiceDTO<ShippingDetailsDTO> updateStateShipment(Shipping shipping, ShippingStatus newStatus) {
-        if(this.validationsService.validateNextState(shipping.getStatusEnum(), newStatus)){
+        if(this.statesService.validateNextState(shipping.getStatusEnum(), newStatus)){
             shipping.setState(newStatus.getDescription());
             this.shippingRepository.save(shipping);
             return new ResponseServiceDTO<>(true, "El envio con identificador: " + shipping.getId() + " fue actualizado correctamente");
