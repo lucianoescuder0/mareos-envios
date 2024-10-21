@@ -24,6 +24,10 @@ public class RespuestaServicioDTO implements Serializable {
         this.mensaje = mensaje;
         this.datos = datos;
     }
+    public RespuestaServicioDTO(Boolean exito, Object datos) {
+        this.exito = exito;
+        this.datos = datos;
+    }
 
     public Boolean getExito() {
         return exito;
