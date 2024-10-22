@@ -1,6 +1,6 @@
 package com.mareosenvios.service;
-import com.mareosenvios.dto.ResponseServiceDTO;
-import com.mareosenvios.dto.StateDTO;
+import com.mareosenvios.dto.response.ResponseServiceDTO;
+import com.mareosenvios.dto.response.StateDTO;
 import com.mareosenvios.enums.ShippingStatus;
 import com.mareosenvios.utils.ExParser;
 import org.slf4j.Logger;

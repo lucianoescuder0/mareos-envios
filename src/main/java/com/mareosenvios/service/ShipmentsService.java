@@ -1,8 +1,9 @@
 package com.mareosenvios.service;
 
-import com.mareosenvios.dto.ProductDTO;
-import com.mareosenvios.dto.ResponseServiceDTO;
-import com.mareosenvios.dto.ShippingDetailsDTO;
+import com.mareosenvios.dto.request.ShippingStateUpdateDTO;
+import com.mareosenvios.dto.response.ProductDTO;
+import com.mareosenvios.dto.response.ResponseServiceDTO;
+import com.mareosenvios.dto.response.ShippingDetailsDTO;
 import com.mareosenvios.entities.Shipping;
 import com.mareosenvios.entities.ShippingItem;
 import com.mareosenvios.enums.ShippingStatus;
@@ -44,12 +45,12 @@ public class ShipmentsService {
     }
 
 
-    public ResponseServiceDTO<?> updateShipment(Integer shipmentId, Integer newStatusCode) {
+    public ResponseServiceDTO<?> updateShipment(Integer shipmentId, ShippingStateUpdateDTO newStatusCode) {
         try {
             Shipping shipping = shippingRepository.findById(shipmentId)
                     .orElseThrow(() -> new EntityNotFoundException("No existe el envio con el identificador " + shipmentId));
 
-            ShippingStatus newStatus = ShippingStatus.fromCode(newStatusCode);
+            ShippingStatus newStatus = ShippingStatus.fromCode(newStatusCode.getState());
             if (shipping.getStatusEnum() == newStatus) {
                 return new ResponseServiceDTO<>(false, "El envío con identificador: " + shipmentId + " ya esta en el estado: " + newStatus.getDescription());
             }
