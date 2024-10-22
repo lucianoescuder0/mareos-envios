@@ -9,18 +9,18 @@ import io.swagger.annotations.ApiModelProperty;
 import java.io.Serializable;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
-@ApiModel(description = "Representa la información de un producto")
+@ApiModel(description = "Representa la información de un producto de un envio")
 public class ProductDTO implements Serializable {
 
-    @JsonInclude(JsonInclude.Include.NON_NULL)
-    @ApiModelProperty(value = "ID del producto, en el top 3 no viene este atributo")
+//    @JsonInclude(JsonInclude.Include.NON_NULL)
+    @ApiModelProperty(value = "ID del producto")
     private Integer productId;
 
     @ApiModelProperty(value = "Descripción del producto")
     private String description;
 
-    @JsonInclude(JsonInclude.Include.NON_NULL)
-    @ApiModelProperty(value = "Peso del producto, , en el top 3 no viene este atributo")
+//    @JsonInclude(JsonInclude.Include.NON_NULL)
+    @ApiModelProperty(value = "Peso del producto")
     private Double weight;
 
     @ApiModelProperty(value = "Cantidad del producto en un envio")
@@ -28,11 +28,11 @@ public class ProductDTO implements Serializable {
 
     public ProductDTO() {
     }
-
-    public ProductDTO(String description, Long productCount) {
-        this.description = description;
-        this.productCount = Math.toIntExact(productCount);
-    }
+//
+//    public ProductDTO(String description, Long productCount) {
+//        this.description = description;
+//        this.productCount = Math.toIntExact(productCount);
+//    }
 
     public ProductDTO(Product product) {
         this.productId = product.getId();

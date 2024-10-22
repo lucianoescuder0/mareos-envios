@@ -1,6 +1,6 @@
 package com.mareosenvios.repositories;
 
-import com.mareosenvios.dto.ProductDTO;
+import com.mareosenvios.dto.TopProductDTO;
 import com.mareosenvios.entities.Shipping;
 import com.mareosenvios.entities.ShippingItem;
 import org.springframework.data.jpa.repository.JpaRepository;
@@ -14,11 +14,11 @@ public interface ShippingItemRepository extends JpaRepository<ShippingItem, Inte
 
     List<ShippingItem> findAllByShipping(Shipping shipping);
 
-    @Query("SELECT new com.mareosenvios.dto.ProductDTO (p.description, SUM(si.productCount)) " +
+    @Query("SELECT new com.mareosenvios.dto.TopProductDTO (p.description, SUM(si.productCount)) " +
             "FROM ShippingItem si " +
             "JOIN si.product p " +
             "GROUP BY p.id " +
             "ORDER BY SUM(si.productCount) DESC")
-    List<ProductDTO> findTopProducts();
+    List<TopProductDTO> findTopProducts();
 
 }

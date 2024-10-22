@@ -1,7 +1,7 @@
 package com.mareosenvios.service;
 
-import com.mareosenvios.dto.ProductDTO;
 import com.mareosenvios.dto.ResponseServiceDTO;
+import com.mareosenvios.dto.TopProductDTO;
 import com.mareosenvios.repositories.ShippingItemRepository;
 import com.mareosenvios.utils.ExParser;
 import org.slf4j.Logger;
@@ -21,7 +21,7 @@ public class ProductsService {
     private static final Logger logger = LoggerFactory.getLogger(ProductsService.class);
 
 
-    public ResponseServiceDTO<List<ProductDTO>> topNProducts(Integer top) {
+    public ResponseServiceDTO<List<TopProductDTO>> topNProducts(Integer top) {
         try{
             if(top <= 0) {
                 return new ResponseServiceDTO<>(false, "El top debe ser mayor que 0");
@@ -34,8 +34,8 @@ public class ProductsService {
         }
     }
 
-    private ResponseServiceDTO<List<ProductDTO>> findTopNProducts(int top) {
-        List<ProductDTO> productDTOList = this.shippingItemRepository.findTopProducts();
+    private ResponseServiceDTO<List<TopProductDTO>> findTopNProducts(int top) {
+        List<TopProductDTO> productDTOList = this.shippingItemRepository.findTopProducts();
         if(!productDTOList.isEmpty()){
             return new ResponseServiceDTO<>(true, "", productDTOList.stream()
                     .limit(top)

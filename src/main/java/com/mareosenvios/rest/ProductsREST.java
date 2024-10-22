@@ -2,6 +2,7 @@ package com.mareosenvios.rest;
 
 import com.mareosenvios.dto.ProductDTO;
 import com.mareosenvios.dto.ResponseServiceDTO;
+import com.mareosenvios.dto.TopProductDTO;
 import com.mareosenvios.service.ProductsService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
@@ -25,10 +26,10 @@ public class ProductsREST {
 
     @GetMapping("/top-products")
     @ApiOperation(value = "Devuelve una lista con el top n de los productos mas solicitado para su envio, sin importar el estado del mismo", response = ResponseServiceDTO.class)
-    public ResponseEntity<ResponseServiceDTO<List<ProductDTO>>> topNProducts(
+    public ResponseEntity<ResponseServiceDTO<List<TopProductDTO>>> topNProducts(
             @ApiParam(value = "Rango del top, si no se envia, el valor por defecto 3", required = false)
             @RequestParam(defaultValue = "3") Integer top) {
-        ResponseServiceDTO<List<ProductDTO>> response = this.productsService.topNProducts(top);
+        ResponseServiceDTO<List<TopProductDTO>> response = this.productsService.topNProducts(top);
         return ResponseEntity.ok(response);
     }
 }
