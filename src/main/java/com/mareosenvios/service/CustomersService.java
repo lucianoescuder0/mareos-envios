@@ -1,7 +1,7 @@
 package com.mareosenvios.service;
 
-import com.mareosenvios.dto.CustomerDTO;
-import com.mareosenvios.dto.ResponseServiceDTO;
+import com.mareosenvios.dto.response.CustomerDTO;
+import com.mareosenvios.dto.response.ResponseServiceDTO;
 import com.mareosenvios.entities.Customer;
 import com.mareosenvios.repositories.CustomerRepository;
 import com.mareosenvios.utils.ExParser;

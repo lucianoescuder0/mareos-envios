@@ -1,8 +1,9 @@
 package com.mareosenvios.rest;
 
-import com.mareosenvios.dto.ResponseServiceDTO;
-import com.mareosenvios.dto.ShippingDetailsDTO;
-import com.mareosenvios.dto.StateDTO;
+import com.mareosenvios.dto.request.ShippingStateUpdateDTO;
+import com.mareosenvios.dto.response.ResponseServiceDTO;
+import com.mareosenvios.dto.response.ShippingDetailsDTO;
+import com.mareosenvios.dto.response.StateDTO;
 import com.mareosenvios.service.ShipmentsService;
 import com.mareosenvios.service.StatesService;
 import io.swagger.annotations.Api;
@@ -10,8 +11,10 @@ import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
 import java.util.List;
 
 @RestController
@@ -39,10 +42,9 @@ public class ShipmentsREST {
     public ResponseEntity<ResponseServiceDTO<?>> updateShipment(
             @ApiParam(value = "id del envio", required = true)
             @PathVariable("shipmentId") Integer shipmentId,
-            @ApiParam(value = "nuevo estado del envío", required = true)
-            @RequestParam("newStatusCode") Integer newStatusCode
+            @Valid @RequestBody() ShippingStateUpdateDTO newShippingStatus
     ) {
-        ResponseServiceDTO<?> response = this.shipmentsService.updateShipment(shipmentId, newStatusCode);
+        ResponseServiceDTO<?> response = this.shipmentsService.updateShipment(shipmentId, newShippingStatus);
         return ResponseEntity.ok(response);
     }
 

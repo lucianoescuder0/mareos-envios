@@ -1,7 +1,7 @@
 package com.mareosenvios.service;
 
-import com.mareosenvios.dto.ResponseServiceDTO;
-import com.mareosenvios.dto.TopProductDTO;
+import com.mareosenvios.dto.response.ResponseServiceDTO;
+import com.mareosenvios.dto.response.TopProductDTO;
 import com.mareosenvios.repositories.ShippingItemRepository;
 import com.mareosenvios.utils.ExParser;
 import org.slf4j.Logger;

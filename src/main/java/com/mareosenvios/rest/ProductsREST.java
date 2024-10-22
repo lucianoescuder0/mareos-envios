@@ -1,8 +1,7 @@
 package com.mareosenvios.rest;
 
-import com.mareosenvios.dto.ProductDTO;
-import com.mareosenvios.dto.ResponseServiceDTO;
-import com.mareosenvios.dto.TopProductDTO;
+import com.mareosenvios.dto.response.ResponseServiceDTO;
+import com.mareosenvios.dto.response.TopProductDTO;
 import com.mareosenvios.service.ProductsService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;

@@ -1,4 +1,4 @@
-package com.mareosenvios.dto;
+package com.mareosenvios.dto.response;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.mareosenvios.enums.ShippingStatus;
