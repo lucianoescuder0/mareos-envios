@@ -5,9 +5,11 @@ import com.mareosenvios.enums.ShippingStatus;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 
+import java.io.Serializable;
+
 @JsonIgnoreProperties(ignoreUnknown = true)
 @ApiModel(description = "Representa el los estados que puede tener un envio")
-public class StateDTO {
+public class StateDTO implements Serializable {
     @ApiModelProperty(value = "Código del estado")
     Integer code;
     @ApiModelProperty(value = "Descripción del estado")
