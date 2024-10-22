@@ -19,7 +19,7 @@ public class ShippingItem implements Serializable {
     @JoinColumn(name = "product_id", nullable = false)
     private Product product;
 
-    @Column(name = "product_count")
+    @Column(name = "product_count", nullable = false)
     private Integer productCount;
 
     public Integer getId() {

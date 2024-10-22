@@ -29,6 +29,11 @@ public class ProductDTO implements Serializable {
     public ProductDTO() {
     }
 
+    public ProductDTO(String description, Long productCount) {
+        this.description = description;
+        this.productCount = Math.toIntExact(productCount);
+    }
+
     public ProductDTO(Product product) {
         this.productId = product.getId();
         this.description = product.getDescription();
