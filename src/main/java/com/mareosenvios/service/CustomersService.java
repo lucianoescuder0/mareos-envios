@@ -10,6 +10,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import javax.persistence.EntityNotFoundException;
 import java.util.Optional;
 
 @Service
@@ -26,20 +27,20 @@ public class CustomersService {
             return this.findCustomerById(customerId);
         } catch (Exception e) {
             String message = ExParser.getRootException(e).getMessage();
-            logger.error("Error al recuperar el cliente con identificador: {} - ERROR: {}", customerId,message, e);
+            logger.error("Error al recuperar el cliente con identificador: {} - ERROR: {}", customerId, message, e);
             return new ResponseServiceDTO<>(false, message);
         }
     }
 
     private ResponseServiceDTO<CustomerDTO> findCustomerById(Integer customerId) {
-        Optional<Customer> customer = this.customerRepository.findById(customerId);
-        if (customer.isPresent()) {
-            CustomerDTO customerDTO = new CustomerDTO(customer.get());
-            logger.info("Cliente encontrado: {}", customerDTO);
-            return new ResponseServiceDTO<>(true, "", customerDTO);
-        } else {
-            logger.warn("No existe el cliente con el identificador {}", customerId);
-            return new ResponseServiceDTO<>(false, "No existe el cliente con el identificador " + customerId);
-        }
+        Customer customer = this.customerRepository.findById(customerId)
+                .orElseThrow(() -> {
+                    logger.warn("No existe el cliente con el identificador {}", customerId);
+                    return new EntityNotFoundException("No existe el cliente con el identificador " + customerId);
+                });
+        CustomerDTO customerDTO = new CustomerDTO(customer);
+        logger.info("Cliente encontrado: {}", customerDTO);
+        return new ResponseServiceDTO<>(true, "", customerDTO);
     }
+
 }

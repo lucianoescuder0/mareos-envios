@@ -15,6 +15,13 @@ public class ShippingStateUpdateDTO implements Serializable {
     @ApiModelProperty(value = "El nuevo estado del envio", example = "1")
     private Integer state;
 
+    public ShippingStateUpdateDTO() {
+    }
+
+    public ShippingStateUpdateDTO(Integer state) {
+        this.state = state;
+    }
+
     public Integer getState() {
         return state;
     }

@@ -39,6 +39,6 @@ public enum ShippingStatus {
                 return status;
             }
         }
-        throw new IllegalArgumentException("Descripción de estado invalida: " + description);
+        throw new IllegalArgumentException("El estado con la descripción '" + description + "' no se encuentra");
     }
 }

@@ -36,6 +36,11 @@ public class StatesService {
 
     // valida el sig estado de un envio
     public boolean validateNextState(ShippingStatus currentStatus, ShippingStatus newStatus) {
+
+        if (newStatus == null) {
+            throw new IllegalArgumentException("Cod de estado invalido: null");
+        }
+
         switch (currentStatus) {
             case INITIAL:
                 return newStatus == ShippingStatus.DELIVERED_TO_MAIL || newStatus == ShippingStatus.CANCELED;
