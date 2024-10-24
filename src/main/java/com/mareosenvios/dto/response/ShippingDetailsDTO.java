@@ -39,7 +39,9 @@ public class ShippingDetailsDTO implements Serializable {
         this.sendDate = shipping.getSendDate();
         this.arriveDate = shipping.getArriveDate();
         this.priority = shipping.getPriority();
-        this.customer = new CustomerDTO(shipping.getCustomer());
+        if(shipping.getCustomer() != null) {
+            this.customer = new CustomerDTO(shipping.getCustomer());
+        }
     }
 
     public Integer getShippingId() {

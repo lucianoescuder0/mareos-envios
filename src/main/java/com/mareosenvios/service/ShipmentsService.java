@@ -48,7 +48,10 @@ public class ShipmentsService {
     public ResponseServiceDTO<?> updateShipment(Integer shipmentId, ShippingStateUpdateDTO newStatusCode) {
         try {
             Shipping shipping = shippingRepository.findById(shipmentId)
-                    .orElseThrow(() -> new EntityNotFoundException("No existe el envio con el identificador " + shipmentId));
+                    .orElseThrow(() -> {
+                        logger.warn("No existe el envio con el identificador " + shipmentId);
+                        return new EntityNotFoundException("No existe el envio con el identificador " + shipmentId);
+                    });
 
             ShippingStatus newStatus = ShippingStatus.fromCode(newStatusCode.getState());
             if (shipping.getStatusEnum() == newStatus) {
@@ -68,7 +71,7 @@ public class ShipmentsService {
             this.shippingRepository.save(shipping);
             return new ResponseServiceDTO<>(true, "El envio con identificador: " + shipping.getId() + " fue actualizado correctamente");
         } else {
-            return new ResponseServiceDTO<>(false, "El envio con identificador: " + shipping.getId() + " no puede ser modificado al estado: " + newStatus.getDescription());
+            return new ResponseServiceDTO<>(false, "El envio con identificador: " + shipping.getId() + " con estado: " + shipping.getState() + " no puede ser modificado al estado: " + newStatus.getDescription());
         }
     }
 
@@ -82,7 +85,11 @@ public class ShipmentsService {
         List<ShippingItem> shippingItems = this.shippingItemRepository.findAllByShipping(shipping);
         if (shippingItems != null && !shippingItems.isEmpty()) {
             List<ProductDTO> productDTOList = shippingItems.stream().map(s -> {
-                ProductDTO productDTO = new ProductDTO(s.getProduct());
+                ProductDTO productDTO = new ProductDTO();
+                //No deberia ser nunca null..
+                if(s.getProduct() != null){
+                    productDTO = new ProductDTO(s.getProduct());
+                }
                 productDTO.setProductCount(s.getProductCount());
                 return productDTO;
             }).collect(Collectors.toList());

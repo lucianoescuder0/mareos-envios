@@ -15,6 +15,13 @@ public class StateDTO implements Serializable {
     @ApiModelProperty(value = "Descripción del estado")
     String description;
 
+    public StateDTO() {}
+
+    public StateDTO(Integer code, String description) {
+        this.code = code;
+        this.description = description;
+    }
+
     public StateDTO(ShippingStatus shippingStatus) {
         this.code = shippingStatus.getCode();
         this.description = shippingStatus.getDescription();
