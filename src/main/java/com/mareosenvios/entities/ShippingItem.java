@@ -12,14 +12,14 @@ public class ShippingItem implements Serializable {
     private Integer id;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "shipping_id")
+    @JoinColumn(name = "shipping_id", nullable = false)
     private Shipping shipping;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "product_id")
+    @JoinColumn(name = "product_id", nullable = false)
     private Product product;
 
-    @Column(name = "product_count")
+    @Column(name = "product_count", nullable = false)
     private Integer productCount;
 
     public Integer getId() {
