@@ -1,7 +1,7 @@
 Agregar el .env en la carpeta docker
 
 EJ
-
+```
 # perfil activo
 SPRING_PROFILES_ACTIVE=prod
 
@@ -18,3 +18,4 @@ POSTGRES_PASSWORD= ##
 # puertos
 APP_PORT=8081
 DB_PORT=5432
+```
